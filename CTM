@@ -1,0 +1,44 @@
+###number of topics by findtopicsnumber###
+library(ldatuning)
+FindTopicsNumber(dtm.e, topics = 2:10, metrics = "Arun2010", mc.cores = 1L)
+
+system.time(
+  topic_number_lemma <- FindTopicsNumber(
+    dtm.e,
+    topics = c(seq(from = 2, to = 9, by = 1), seq(10, 20, 2), seq(25, 50, 5)),
+    metrics = c( "Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
+    method = "Gibbs",
+    mc.cores = 2L,
+    verbose = TRUE
+  )
+)
+
+###CTM out###
+library('topicmodels')
+system.time(ctm.out <- CTM(dtm.e,control=list(seed=10012),k=20))
+dim(ctm.out@gamma)
+dim(ctm.out@beta)
+terms(ctm.out,40)
+
+
+###topic matrix###
+post <- topicmodels::posterior(ctm.out)
+cor_mat <- cor(t(post[["terms"]]))
+cor_mat
+
+
+###network of the word distributions over topics###
+cor_mat[cor_mat < .05 ] <- 0
+diag(cor_mat) <- 0
+library(igraph)
+graph <- graph.adjacency(cor_mat, weighted=TRUE, mode="lower")
+graph <- delete.edges(graph, E(graph)[weight < 0.05])
+E(graph)$edge.width <- E(graph)$weight*2
+V(graph)$label <- paste("Topic", V(graph))
+V(graph)$size <- colSums(post[["topics"]]) * 1
+par(mar=c(0, 0, 3, 0))
+set.seed(110)
+plot.igraph(graph, edge.width = E(graph)$edge.width, 
+            edge.color = "orange", vertex.color = "orange", 
+            vertex.frame.color = NA, vertex.label.color = "grey30")
+title("Strength Between Topics Based On Word Probabilities", cex.main=.8)
