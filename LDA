@@ -30,7 +30,8 @@ mycorpus <- tm_map(mycorpus, stemDocument, language="en")
 mycorpus <- tm_map(mycorpus, stripWhitespace)
 mycorpus<-tm_map(mycorpus, removeWords, words=stopwords("SMART"))
 mystopwords <- c("seoul","aircraft", "korea","korean","south","military","fighter",
-                 "jet","defense","ministry","minister","official","project","defence","billion","air","ministri","offici")
+                 "jet","defense","ministry","minister","official","project","defence","billion",
+                 "air","ministri","offici")
 mycorpus <- tm_map(mycorpus, removeWords, mystopwords)
 mycorpus <- tm_map(mycorpus, stripWhitespace)
 #mycorpus <- tm_map(mycorpus, removeNumbers)
