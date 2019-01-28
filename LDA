@@ -50,7 +50,8 @@ mydigits <- lapply(mycorpus, function(x) (str_extract_all(x, "[[:digit:]]{1,}"))
 table(unlist(mydigits))
 
 #see punct
-mypuncts <- lapply(mycorpus, function(x) (str_extract_all(x, "\\b[[:alpha:]]{1,}[[:punct:]]{1,}[[:alpha:]]{1,}\\b")))
+mypuncts <- lapply(mycorpus, function(x) (str_extract_all(x, "\\b[[:alpha:]]{1,}[[:punct:]]{1,}
+[[:alpha:]]{1,}\\b")))
 table(unlist(mypuncts))
 
 #ngram process
@@ -70,7 +71,8 @@ for(i in seq_along(mycorpus)){
   mycorpus[[i]]$content <- gsub("war plane\\b(s)", "fighter", mycorpus[[i]]$content);
   mycorpus[[i]]$content <- gsub("thoma schwartz", "thomasschwartz", mycorpus[[i]]$content);
   mycorpus[[i]]$content <- gsub("army gen", "thomasschwartz", mycorpus[[i]]$content);
-  mycorpus[[i]]$content <- gsub("b[[:alpha:]]ryan\\[[:alpha:]]b", "georgeryan", mycorpus[[i]]$content);
+  mycorpus[[i]]$content <- gsub("b[[:alpha:]]ryan\\[[:alpha:]]b", "georgeryan", mycorpus[[i]]$
+  content);
   mycorpus[[i]]$content <- gsub("ryan", "georgeryan", mycorpus[[i]]$content);
   mycorpus[[i]]$content <- gsub("culloton", "georgeryan", mycorpus[[i]]$content);
   mycorpus[[i]]$content <- gsub("sen christopher kit", "kitbond", mycorpus[[i]]$content);
