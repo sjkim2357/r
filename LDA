@@ -323,7 +323,6 @@ ggplot(data=cluster.by.year, aes(x=year, y=freq., fill=cluster)) +
   scale_x_continuous(breaks=1996:2002,labels=1996:2002)+
   scale_fill_manual(values=1:9,labels=paste('cluster',1:9,sep=''))+
   labs(x="year",y="freq.",fill='cluster')
-
 ###number of topics###
 library(ldatuning)
 FindTopicsNumber(dtm.e, topics = 2:10, metrics = "Arun2010", mc.cores = 1L)
@@ -337,7 +336,6 @@ system.time(
     verbose = TRUE
   )
 )
-
 ###topic model###
 #control=list(seed=11) 
 library('topicmodels')
